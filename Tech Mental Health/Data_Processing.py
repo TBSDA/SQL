@@ -32,7 +32,8 @@ class DataProcessing:
             represented by QuestionID number from the Question table. '''
         conn = sqlite3.connect(f'{self.path}{self.db_name}.sqlite')
         c = conn.cursor()
-        c.execute("SELECT AnswerText FROM Answer WHERE QuestionID = ?", (q_id,))
+		# SELECT DISTINCT can be used
+        c.execute("SELECT AnswerText FROM Answer WHERE QuestionID = ?", (q_id,)) 
 #         answers = set(c.fetchall())
         answers = list(dict.fromkeys(c.fetchall())) # let's keep the order
         conn.close()
